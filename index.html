@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Test Platform</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============ AUTH VIEWS ============ -->
+<div id="auth-container">
+    <div id="login-form">
+        <h2>Login</h2>
+        <input type="email" id="login-email" placeholder="Email">
+        <input type="password" id="login-password" placeholder="Password">
+        <button id="login-btn">Login</button>
+        <p>Don't have an account? <a href="#" id="show-signup">Sign Up</a></p>
+    </div>
+
+    <div id="signup-form" style="display:none;">
+        <h2>Sign Up</h2>
+        <input type="text" id="signup-name" placeholder="Full Name">
+        <input type="email" id="signup-email" placeholder="Email">
+        <input type="password" id="signup-password" placeholder="Password">
+        <select id="signup-role">
+            <option value="student">Student</option>
+            <option value="admin">Admin</option>
+        </select>
+        <button id="signup-btn">Sign Up</button>
+        <p>Already have an account? <a href="#" id="show-login">Login</a></p>
+    </div>
+    <div id="message"></div>
+</div>
+
+<!-- ============ ADMIN DASHBOARD ============ -->
+<div id="admin-dashboard" style="display:none;">
+    <div class="sidebar">
+        <h2>Admin Panel</h2>
+        <a href="#" class="nav-link active" data-section="admin-students">Students</a>
+        <a href="#" class="nav-link" data-section="admin-subjects">Subjects</a>
+        <a href="#" class="nav-link" data-section="admin-levels">Levels</a>
+        <a href="#" class="nav-link" data-section="admin-contents">Content</a>
+        <a href="#" class="nav-link" data-section="admin-questions">Questions</a>
+        <a href="#" class="nav-link" data-section="admin-tests">Tests</a>
+        <a href="#" class="nav-link" data-section="admin-create-test">Create Test</a>
+        <button id="admin-logout-btn" class="logout-btn">Logout</button>
+    </div>
+    <div class="main-content">
+        <!-- Students Section -->
+        <div id="admin-students" class="section active">
+            <h2>Registered Students</h2>
+            <div id="students-list"></div>
+        </div>
+
+        <!-- Subjects Section -->
+        <div id="admin-subjects" class="section" style="display:none;">
+            <h2>Manage Subjects</h2>
+            <div class="form-row">
+                <input type="text" id="subject-name" placeholder="Subject Name">
+                <input type="text" id="subject-desc" placeholder="Description">
+                <button id="add-subject-btn">Add Subject</button>
+            </div>
+            <div id="subjects-list"></div>
+        </div>
+
+        <!-- Levels Section -->
+        <div id="admin-levels" class="section" style="display:none;">
+            <h2>Manage Levels</h2>
+            <div class="form-row">
+                <select id="level-subject-select"></select>
+                <input type="text" id="level-name" placeholder="Level Name (e.g. Level 1)">
+                <input type="number" id="level-number" placeholder="Level #" min="1">
+                <button id="add-level-btn">Add Level</button>
+            </div>
+            <div id="levels-list"></div>
+        </div>
+
+        <!-- Content Section -->
+        <div id="admin-contents" class="section" style="display:none;">
+            <h2>Manage Content</h2>
+            <div class="form-col">
+                <select id="content-subject-select"></select>
+                <select id="content-level-select"><option value="">Select Level</option></select>
+                <input type="text" id="content-title" placeholder="Content Title">
+                <textarea id="content-body" placeholder="Paste or type the subject content here..." rows="8"></textarea>
+                <button id="add-content-btn">Save Content</button>
+            </div>
+            <div id="contents-list"></div>
+        </div>
+
+        <!-- Questions Section -->
+        <div id="admin-questions" class="section" style="display:none;">
+            <h2>Question Bank</h2>
+            <div class="form-col">
+                <select id="q-subject-select"></select>
+                <select id="q-level-select"><option value="">Select Level</option></select>
+                <button id="generate-questions-btn">Generate Questions with AI</button>
+                <div id="ai-status" style="display:none;">Generating questions...</div>
+            </div>
+            <div id="questions-list"></div>
+        </div>
+
+        <!-- Tests Section -->
+        <div id="admin-tests" class="section" style="display:none;">
+            <h2>All Tests</h2>
+            <div id="tests-list"></div>
+        </div>
+
+        <!-- Create Test Section -->
+        <div id="admin-create-test" class="section" style="display:none;">
+            <h2>Create New Test</h2>
+            <div class="form-col">
+                <input type="text" id="test-title" placeholder="Test Title">
+                <select id="test-subject-select"></select>
+                <select id="test-level-select"><option value="">Select Level</option></select>
+                <select id="test-status">
+                    <option value="draft">Draft</option>
+                    <option value="published">Published</option>
+                </select>
+                <input type="number" id="test-time" placeholder="Time Limit (minutes)" value="30" min="1">
+                <div id="test-questions-checklist"></div>
+                <button id="create-test-btn">Create Test</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ============ STUDENT DASHBOARD ============ -->
+<div id="student-dashboard" style="display:none;">
+    <div class="sidebar">
+        <h2>Student Panel</h2>
+        <a href="#" class="nav-link active" data-section="student-available-tests">Available Tests</a>
+        <a href="#" class="nav-link" data-section="student-my-results">My Results</a>
+        <button id="student-logout-btn" class="logout-btn">Logout</button>
+    </div>
+    <div class="main-content">
+        <div id="student-available-tests" class="section active">
+            <h2>Available Tests</h2>
+            <div id="available-tests-list"></div>
+        </div>
+        <div id="student-my-results" class="section" style="display:none;">
+            <h2>My Results</h2>
+            <div id="my-results-list"></div>
+        </div>
+    </div>
+</div>
+
+<!-- ============ TEST TAKING VIEW ============ -->
+<div id="test-taking" style="display:none;">
+    <div class="test-header">
+        <h2 id="test-taking-title"></h2>
+        <div class="timer">Time Left: <span id="timer-display">30:00</span></div>
+    </div>
+    <div id="test-questions-container"></div>
+    <button id="submit-test-btn">Submit Test</button>
+</div>
+
+<!-- ============ RESULTS VIEW ============ -->
+<div id="results-view" style="display:none;">
+    <h2>Test Result</h2>
+    <div id="results-content"></div>
+    <button id="back-to-dashboard-btn">Back to Dashboard</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

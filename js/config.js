@@ -1,0 +1,2 @@
+const SUPABASE_URL = 'https://zuutomeybfgalnitsxbj.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp1dXRvbWV5YmZnYWxuaXRzeGJqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcyODEyMDEsImV4cCI6MjEwMjg1NzIwMX0.5Ac0RMa8KxeFkJ2lz2HNr0GSYwe8KjtSIPPTcUGdCTk';
